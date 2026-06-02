@@ -1,6 +1,24 @@
 import { useState } from "react";
 
-const categoryLable: Record<string, string> = {
+const DAYS = [
+  "日曜日",
+  "月曜日",
+  "火曜日",
+  "水曜日",
+  "木曜日",
+  "金曜日",
+  "土曜日",
+];
+
+const getJapaneseToday = () => {
+  const today = new Date();
+  const month = today.getMonth() + 1;
+  const day = today.getDay();
+  const dayOfWeek = DAYS[today.getDay()];
+  return `${month}月${day}日 ${dayOfWeek}`;
+};
+
+const categoryLabel: Record<string, string> = {
   society: "사회",
   economy: "경제",
   culture: "문화",
@@ -21,7 +39,6 @@ interface Props {
   body: string;
   translation: string;
   category: string;
-  publishedDate: string;
 }
 
 export default function ArticleSection({
@@ -29,19 +46,20 @@ export default function ArticleSection({
   body,
   translation,
   category,
-  publishedDate,
 }: Props) {
   const [showTranslation, setShowTranslation] = useState(false);
 
   return (
     <section className="px-5 pt-6 pb-4">
       {/* 날짜 & 카테고리 */}
-      <div className="mb-3 flex items-center gap-2">
-        <span className="text-xs text-gray-400">{publishedDate}</span>
+      <div className="mb-3 flex items-center justify-between gap-2">
         <span
           className={`rounded-full px-2 py-0.5 text-xs font-medium ${categoryColor[category]}`}
         >
-          {categoryLable[category]}
+          {categoryLabel[category]}
+        </span>
+        <span className="text-sm font-bold text-gray-600">
+          {getJapaneseToday()}
         </span>
       </div>
 
@@ -60,13 +78,12 @@ export default function ArticleSection({
         onClick={() => setShowTranslation(!showTranslation)}
         className="flex-items-center w-full justify-center gap-1 py-2 text-xs text-gray-400 transition-colors hover:text-gray-600"
       >
-        <span>{showTranslation ? "번역 숨기기" : "한국어 번역 보기"}</span>
-        <span>{showTranslation ? "▲" : "▼"}</span>
+        <span>{showTranslation ? "번역 숨기기" : "번역 보기"}</span>
       </button>
 
       {/* 번역 */}
       {showTranslation && (
-        <div className="mt-1 rounded-xl bg-blue-50 p-4">
+        <div className="mt-1 rounded-xl bg-[rgb(220,233,220)] p-4">
           <p className="text-sm leading-loose text-gray-600">{translation}</p>
         </div>
       )}

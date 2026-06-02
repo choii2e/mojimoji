@@ -22,7 +22,7 @@ export default function TodayPage() {
     return (
       <div className="flex min-h-screen flex-col items-center justify-center gap-2 px-6 text-center">
         <p className="text-sm text-gray-400">오늘의 학습 콘텐츠가 없어요.</p>
-        <p className="text-xs text-gray-300">평일에만 업데이트됩니다.</p>
+        <p className="text-xs text-gray-300">주말에는 쉬어갑니다.</p>
       </div>
     );
   }
@@ -34,7 +34,6 @@ export default function TodayPage() {
         body={data.body}
         translation={data.translation}
         category={data.category}
-        publishedDate={data.publishedDate}
       />
 
       <div className="mx-5 border-t border-gray-100" />
@@ -45,14 +44,14 @@ export default function TodayPage() {
 
       <GrammarSection grammarPoints={data.grammar_points} />
 
-      <div className="px-5 pt-4">
+      <div className="flex justify-center px-5 pt-4">
         <button
           onClick={() => completeStudy()}
           disabled={isCompleted || isPending}
-          className={`w-full rounded-xl py-3 text-sm font-bold transition-colors ${isCompleted ? "cursor-default bg-gray-100 text-gray-400" : "bg-[rgb(100,201,100)] text-white hover:bg-[rgb(90,187,90)]"}`}
+          className={`w-1/2 rounded-xl py-3 text-sm font-bold transition-colors ${isCompleted ? "cursor-default bg-gray-100 text-gray-400" : "bg-[rgb(100,201,100)] text-white hover:bg-[rgb(90,187,90)]"}`}
         >
           {isCompleted
-            ? "✅오늘 학습 완료"
+            ? "🌱 오늘 학습 완료"
             : isPending
               ? "저장 중..."
               : "학습 완료"}

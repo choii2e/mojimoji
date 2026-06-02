@@ -18,7 +18,7 @@ export default function GrammarSection({ grammarPoints }: Props) {
 
   return (
     <section className="px-5 py-4">
-      <h2 className="mb-3 text-sm font-bold text-gray-700">✏️문법 포인트</h2>
+      <h2 className="mb-3 text-sm font-bold text-gray-700">⭐ 문법 포인트</h2>
       <div className="flex flex-col gap-3">
         {sorted.map((grammar) => (
           <div
