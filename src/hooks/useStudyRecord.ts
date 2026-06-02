@@ -1,6 +1,7 @@
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { supabase } from "../lib/supabase";
 import { useAuthStore } from "../store/authStore";
+import { getLocalDateString } from "../lib/date";
 
 // 오늘 학습 완료 여부 확인
 const fetchStudyRecord = async (userId: string, articleId: string) => {
@@ -17,7 +18,7 @@ const fetchStudyRecord = async (userId: string, articleId: string) => {
 
 // 학습 완료 저장
 const insertStudyRecord = async (userId: string, articleId: string) => {
-  const today = new Date().toISOString().split("T")[0];
+  const today = getLocalDateString();
 
   const { error } = await supabase.from("study_records").upsert({
     user_id: userId,
