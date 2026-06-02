@@ -6,7 +6,7 @@ export default function MyPage() {
 
   const handleLogout = async () => {
     await supabase.auth.signOut();
-    navigate("/login", { replace: true });
+    navigate("/", { replace: true });
   };
 
   return (
