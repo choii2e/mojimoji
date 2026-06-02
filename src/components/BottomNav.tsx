@@ -66,7 +66,7 @@ const tabs = [
 
 export default function BottomNav() {
   return (
-    <nav className="fixed bottom-0 left-1/2 w-full max-w-150 -translate-x-1/2 border-t border-gray-100 bg-white">
+    <nav className="fixed bottom-0 left-1/2 w-full max-w-125 -translate-x-1/2 border-t border-gray-100 bg-white">
       <div className="flex">
         {tabs.map(({ path, label, icon }) => (
           <NavLink
