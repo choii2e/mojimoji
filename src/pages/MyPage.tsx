@@ -30,7 +30,7 @@ export default function MyPage() {
   return (
     <div className="px-5 pt-6 pb-6">
       {/* 유저 이메일 */}
-      <p className="mb-6 text-xs text-gray-400">
+      <p className="mb-6 text-right text-xs text-gray-400">
         こんにちは！{user?.email?.split("@")[0]} 님
       </p>
 
