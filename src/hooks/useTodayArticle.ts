@@ -1,9 +1,9 @@
 import { useQuery } from "@tanstack/react-query";
 import { supabase } from "../lib/supabase";
-import { getLocalDateString } from "../lib/date";
+import { toDateString } from "../lib/date";
 
 const fetchTodayArticle = async () => {
-  const today = getLocalDateString();
+  const today = toDateString(new Date());
 
   const { data, error } = await supabase
     .from("articles")
@@ -22,7 +22,7 @@ const fetchTodayArticle = async () => {
 };
 
 export const useTodayArticle = () => {
-  const today = getLocalDateString();
+  const today = toDateString(new Date());
 
   return useQuery({
     queryKey: ["today-article", today],

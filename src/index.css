@@ -26,3 +26,106 @@ body {
 body * {
   font-family: PretendardScript;
 }
+
+/* ── react-calendar 커스텀 스타일 ── */
+.calendar-wrapper .react-calendar {
+  width: 100%;
+  border: none;
+  border-radius: 12px;
+  background-color: rgb(249, 249, 249);
+  font-family: inherit;
+  padding: 8px;
+}
+
+/* 네비게이션 */
+.calendar-wrapper .react-calendar__navigation button {
+  background: none;
+  font-size: 16px;
+  color: rgb(107, 114, 128);
+  min-width: 32px;
+}
+
+.calendar-wrapper .react-calendar__navigation__label {
+  font-size: 14px;
+  font-weight: 700;
+  color: rgb(55, 65, 81);
+  pointer-events: none;
+}
+
+.calendar-wrapper .react-calendar__navigation button:enabled:hover {
+  background-color: rgb(243, 244, 246);
+  border-radius: 8px;
+}
+
+/* 요일 */
+.calendar-wrapper .react-calendar__month-view__weekdays__weekday abbr {
+  text-decoration: none;
+  font-size: 12px;
+  color: rgb(156, 163, 175);
+  font-weight: normal;
+}
+
+/* 날짜 타일 기본 */
+.calendar-wrapper .react-calendar__tile {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  color: rgb(75, 85, 99);
+  padding: 4px 0;
+  background: none;
+  border-radius: 0;
+}
+
+.calendar-wrapper .react-calendar__tile > abbr {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+}
+
+.calendar-wrapper .react-calendar__tile:enabled:hover > abbr {
+  background-color: rgb(243, 244, 246);
+}
+
+/* 오늘 */
+.calendar-wrapper .react-calendar__tile--now {
+  background: none;
+}
+
+.calendar-wrapper .react-calendar__tile--now > abbr {
+  border: 1.5px solid rgb(100, 201, 100);
+  color: rgb(100, 201, 100);
+  font-weight: 700;
+}
+
+.calendar-wrapper .react-calendar__tile--now:enabled:hover,
+.calendar-wrapper .react-calendar__tile--now:enabled:focus {
+  background-color: rgb(220, 245, 220);
+}
+
+.calendar-wrapper .react-calendar__tile--now:enabled:hover > abbr {
+  background-color: rgb(220, 245, 220);
+}
+
+/* 선택 효과 제거 */
+.calendar-wrapper .react-calendar__tile--active,
+.calendar-wrapper .react-calendar__tile--active:enabled:hover,
+.calendar-wrapper .react-calendar__tile--active:enabled:focus {
+  background: none;
+  color: rgb(75, 85, 99);
+}
+
+/* 학습 완료일 */
+.calendar-wrapper .studied-day > abbr {
+  background-color: rgb(100, 201, 100) !important;
+  color: white !important;
+  font-weight: 700;
+}
+
+/* 이웃 달 날짜 */
+.calendar-wrapper .react-calendar__month-view__days__day--neighboringMonth {
+  color: rgb(209, 213, 219);
+}
