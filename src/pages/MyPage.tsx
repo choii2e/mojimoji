@@ -4,11 +4,14 @@ import { useAuthStore } from "../store/authStore";
 import { useStudyHistory } from "../hooks/useStudyHistory";
 import { calculateStreak, calculateTotalDays } from "../lib/streak";
 import StudyCalendar from "../components/mypage/StudyCalendar";
+import { useArticleDates } from "../hooks/useArticleDates";
+import { toDateString } from "../lib/date";
 
 export default function MyPage() {
   const navigate = useNavigate();
   const { user } = useAuthStore();
   const { data: history, isLoading } = useStudyHistory();
+  const { data: articleDates } = useArticleDates();
 
   const dates = history?.map((r) => r.studied_at) ?? [];
   const streak = calculateStreak(dates);
@@ -38,7 +41,7 @@ export default function MyPage() {
       <div className="mb-6 flex gap-3">
         <div className="flex flex-1 flex-col items-center justify-center gap-1 rounded-2xl bg-[rgb(100,201,100)] py-5">
           <span className="text-3xl font-bold text-white">{streak}</span>
-          <span className="text-xs text-white opacity-80">현재 스트릭 🔥</span>
+          <span className="text-xs text-white opacity-80">연속 학습일 🔥</span>
         </div>
         <div className="flex flex-1 flex-col items-center justify-center gap-1 rounded-2xl bg-gray-50 py-5">
           <span className="text-3xl font-bold text-gray-700">{totalDays}</span>
@@ -49,7 +52,14 @@ export default function MyPage() {
       {/* 캘린더 */}
       <div className="mb-6">
         <h2 className="mb-3 text-sm font-bold text-gray-700">🗓️ 학습 캘린더</h2>
-        <StudyCalendar studiedDates={dates} />
+        <StudyCalendar
+          studiedDates={dates}
+          articleDates={(articleDates ?? []).filter((d) => {
+            if (!user?.created_at) return false;
+            const signUpDate = toDateString(new Date(user.created_at));
+            return d >= signUpDate;
+          })}
+        />
       </div>
 
       {/* 학습 기록 */}

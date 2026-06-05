@@ -129,3 +129,15 @@ body * {
 .calendar-wrapper .react-calendar__month-view__days__day--neighboringMonth {
   color: rgb(209, 213, 219);
 }
+
+.calendar-wrapper .react-calendar__tile.missed-day > abbr {
+  background-color: rgb(254, 242, 242);
+  color: red !important;
+  position: relative;
+}
+
+.calender-wrapper .react-calendar__tile.missed-day > abbr::before {
+  position: absolute;
+  color: rgb(252, 165, 165);
+  font-size: 11px;
+}

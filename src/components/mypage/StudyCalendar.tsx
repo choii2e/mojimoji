@@ -4,15 +4,18 @@ import { toDateString } from "../../lib/date";
 
 interface Props {
   studiedDates: string[];
+  articleDates: string[];
 }
 
-export default function StudyCalendar({ studiedDates }: Props) {
-  const dateSet = new Set(studiedDates);
+export default function StudyCalendar({ studiedDates, articleDates }: Props) {
+  const studiedSet = new Set(studiedDates);
+  const missedSet = new Set(articleDates.filter((d) => !studiedSet.has(d)));
 
-  const tileClassName = ({ date }: { date: Date }) => {
-    if (dateSet.has(toDateString(date))) {
-      return "studied-day";
-    }
+  const tileClassName = ({ date, view }: { date: Date; view: string }) => {
+    if (view !== "month") return null;
+    const dateStr = toDateString(date);
+    if (studiedSet.has(dateStr)) return "studied-day";
+    if (missedSet.has(dateStr)) return "missed-day";
     return null;
   };
 
