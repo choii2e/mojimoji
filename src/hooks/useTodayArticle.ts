@@ -23,9 +23,14 @@ const fetchTodayArticle = async () => {
 
 export const useTodayArticle = () => {
   const today = toDateString(new Date());
+  const isWeekend = [0, 6].includes(new Date().getDay());
 
-  return useQuery({
+  const query = useQuery({
     queryKey: ["today-article", today],
     queryFn: fetchTodayArticle,
+    enabled: !isWeekend, // 주말이면 쿼리 실행 안함
+    retry: false,
   });
+
+  return { ...query, isWeekend };
 };

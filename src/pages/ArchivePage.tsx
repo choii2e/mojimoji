@@ -79,7 +79,7 @@ export default function ArchivePage() {
 
               {/* 기사 목록 */}
               {isOpen(month, index) && (
-                <div className="flex max-h-[532px] flex-col divide-y divide-gray-50 overflow-y-auto">
+                <div className="flex max-h-133 flex-col divide-y divide-gray-50 overflow-y-auto">
                   {grouped[month].map((article) => (
                     <button
                       key={article.id}

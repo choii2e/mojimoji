@@ -5,24 +5,24 @@ import GrammarSection from "../components/today/Grammarsection";
 import { useStudyRecord } from "../hooks/useStudyRecord";
 
 export default function TodayPage() {
-  const { data, isLoading, isError } = useTodayArticle();
+  const { data, isLoading, isWeekend } = useTodayArticle();
   const { isCompleted, completeStudy, isPending } = useStudyRecord(
     data?.id ?? "",
   );
+
+  if (isWeekend) {
+    return (
+      <div className="flex min-h-screen flex-col items-center justify-center gap-2 px-6 text-center">
+        <p className="text-sm text-gray-400">오늘의 학습 콘텐츠가 없어요. 😊</p>
+        <p className="text-xs text-gray-300">주말에는 쉬어갑니다.</p>
+      </div>
+    );
+  }
 
   if (isLoading) {
     return (
       <div className="flex min-h-screen items-center justify-center text-sm text-gray-400">
         오늘의 학습을 불러오는 중...
-      </div>
-    );
-  }
-
-  if (isError || !data) {
-    return (
-      <div className="flex min-h-screen flex-col items-center justify-center gap-2 px-6 text-center">
-        <p className="text-sm text-gray-400">오늘의 학습 콘텐츠가 없어요.</p>
-        <p className="text-xs text-gray-300">주말에는 쉬어갑니다.</p>
       </div>
     );
   }
