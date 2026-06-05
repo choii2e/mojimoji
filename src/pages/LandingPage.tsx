@@ -141,7 +141,7 @@ export default function LandingPage() {
           <p className="mb-10 text-sm leading-relaxed text-white/80">
             매일 짧은 뉴스 기사 한 편으로
             <br />
-            어휘와 문법을 함께 익혀요
+            어휘와 문법을 함께 학습해요
           </p>
           <button
             onClick={() => navigate("/login")}
