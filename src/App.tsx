@@ -10,6 +10,7 @@ import { useEffect } from "react";
 import { supabase } from "./lib/supabase";
 import ProtectedRoute from "./components/ProtectedRoute";
 import Layout from "./components/Layout";
+import ArticleDetailPage from "./pages/ArticleDetailPage";
 
 function App() {
   const setSession = useAuthStore((state) => state.setSession);
@@ -48,6 +49,16 @@ function App() {
           <ProtectedRoute>
             <Layout>
               <ArchivePage />
+            </Layout>
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/archive/:id"
+        element={
+          <ProtectedRoute>
+            <Layout>
+              <ArticleDetailPage />
             </Layout>
           </ProtectedRoute>
         }

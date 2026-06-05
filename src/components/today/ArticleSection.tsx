@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { categoryColor, categoryLabel } from "../../lib/category";
 
 const DAYS = [
   "日曜日",
@@ -10,28 +11,17 @@ const DAYS = [
   "土曜日",
 ];
 
-const getJapaneseToday = () => {
-  const today = new Date();
-  const month = today.getMonth() + 1;
-  const day = today.getDay();
-  const dayOfWeek = DAYS[today.getDay()];
-  return `${month}月${day}日 ${dayOfWeek}`;
-};
-
-const categoryLabel: Record<string, string> = {
-  society: "사회",
-  economy: "경제",
-  culture: "문화",
-  technology: "기술",
-  environment: "환경",
-};
-
-const categoryColor: Record<string, string> = {
-  society: "bg-blue-100 text-blue-600",
-  economy: "bg-yellow-100 text-yellow-600",
-  culture: "bg-purple-100 text-purple-600",
-  technology: "bg-cyan-100 text-cyan-600",
-  environment: "bg-green-100 text-green-600",
+const getJapaneseDate = (dateStr?: string) => {
+  if (!dateStr) {
+    const today = new Date();
+    return `${today.getMonth() + 1}月${today.getDate()}日 ${DAYS[today.getDay()]}`;
+  }
+  const [yearStr, monthStr, dayStr] = dateStr.split("-");
+  const year = parseInt(yearStr);
+  const month = parseInt(monthStr);
+  const day = parseInt(dayStr);
+  const date = new Date(year, month - 1, day);
+  return `${month}月${day}日 ${DAYS[date.getDay()]}`;
 };
 
 interface Props {
@@ -39,6 +29,7 @@ interface Props {
   body: string;
   translation: string;
   category: string;
+  publishedDate?: string;
 }
 
 export default function ArticleSection({
@@ -46,6 +37,7 @@ export default function ArticleSection({
   body,
   translation,
   category,
+  publishedDate,
 }: Props) {
   const [showTranslation, setShowTranslation] = useState(false);
 
@@ -59,7 +51,7 @@ export default function ArticleSection({
           {categoryLabel[category]}
         </span>
         <span className="text-sm font-bold text-gray-600">
-          {getJapaneseToday()}
+          {getJapaneseDate(publishedDate)}
         </span>
       </div>
 
@@ -78,7 +70,9 @@ export default function ArticleSection({
         onClick={() => setShowTranslation(!showTranslation)}
         className="flex-items-center w-full justify-center gap-1 py-2 text-xs text-gray-400 transition-colors hover:text-gray-600"
       >
-        <span>{showTranslation ? "번역 숨기기" : "번역 보기"}</span>
+        <span className="cursor-pointer">
+          {showTranslation ? "번역 숨기기" : "번역 보기"}
+        </span>
       </button>
 
       {/* 번역 */}
