@@ -4,6 +4,7 @@ import VocabSection from "../components/today/Vocabsection";
 import GrammarSection from "../components/today/Grammarsection";
 import { useStudyRecord } from "../hooks/useStudyRecord";
 import { Toast } from "../lib/swal";
+import LoadingSpinner from "../components/LoadingSpinner";
 
 export default function TodayPage() {
   const { data, isLoading, isWeekend } = useTodayArticle();
@@ -20,13 +21,7 @@ export default function TodayPage() {
     );
   }
 
-  if (isLoading) {
-    return (
-      <div className="flex min-h-screen items-center justify-center text-sm text-gray-400">
-        오늘의 학습을 불러오는 중...
-      </div>
-    );
-  }
+  if (isLoading) return <LoadingSpinner />;
 
   return (
     <div className="pb-6">

@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useArchive } from "../hooks/useArchive";
 import { categoryColor, categoryLabel } from "../lib/category";
+import LoadingSpinner from "../components/LoadingSpinner";
 
 // 기사 목록을 월별로 그룹핑
 const groupByMonth = (
@@ -43,13 +44,7 @@ export default function ArchivePage() {
     setOpenMonths((prev) => ({ ...prev, [month]: !isOpen(month, index) }));
   };
 
-  if (isLoading) {
-    return (
-      <div className="flex min-h-screen items-center justify-center text-sm text-gray-400">
-        불러오는 중...
-      </div>
-    );
-  }
+  if (isLoading) return <LoadingSpinner />;
 
   return (
     <div className="px-5 pt-6 pb-6">

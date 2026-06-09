@@ -5,8 +5,9 @@ import { useStudyHistory } from "../hooks/useStudyHistory";
 import { calculateStreak, calculateTotalDays } from "../lib/streak";
 import StudyCalendar from "../components/mypage/StudyCalendar";
 import { useArticleDates } from "../hooks/useArticleDates";
-import { toDateString } from "../lib/date";
+import { getJapaneseDate, toDateString } from "../lib/date";
 import { Modal } from "../lib/swal";
+import LoadingSpinner from "../components/LoadingSpinner";
 
 export default function MyPage() {
   const navigate = useNavigate();
@@ -36,13 +37,7 @@ export default function MyPage() {
     }
   };
 
-  if (isLoading) {
-    return (
-      <div className="flex min-h-screen items-center justify-center text-sm text-gray-400">
-        불러오는 중...
-      </div>
-    );
-  }
+  if (isLoading) return <LoadingSpinner />;
 
   return (
     <div className="px-5 pt-6 pb-6">
@@ -91,7 +86,7 @@ export default function MyPage() {
                 className="flex items-center justify-between rounded-xl bg-gray-50 px-4 py-3"
               >
                 <span className="text-sm text-gray-600">
-                  {record.studied_at}
+                  {getJapaneseDate(record.studied_at)}
                 </span>
                 <span className="text-xs text-[rgb(100,201,100)]">✅ 완료</span>
               </div>

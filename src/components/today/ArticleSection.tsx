@@ -1,28 +1,6 @@
 import { useState } from "react";
 import { categoryColor, categoryLabel } from "../../lib/category";
-
-const DAYS = [
-  "日曜日",
-  "月曜日",
-  "火曜日",
-  "水曜日",
-  "木曜日",
-  "金曜日",
-  "土曜日",
-];
-
-const getJapaneseDate = (dateStr?: string) => {
-  if (!dateStr) {
-    const today = new Date();
-    return `${today.getMonth() + 1}月${today.getDate()}日 ${DAYS[today.getDay()]}`;
-  }
-  const [yearStr, monthStr, dayStr] = dateStr.split("-");
-  const year = parseInt(yearStr);
-  const month = parseInt(monthStr);
-  const day = parseInt(dayStr);
-  const date = new Date(year, month - 1, day);
-  return `${month}月${day}日 ${DAYS[date.getDay()]}`;
-};
+import { getJapaneseDate } from "../../lib/date";
 
 interface Props {
   title: string;
