@@ -48,7 +48,7 @@ export default function TodayPage() {
         <button
           onClick={() => completeStudy()}
           disabled={isCompleted || isPending}
-          className={`w-1/2 rounded-xl py-3 text-sm font-bold transition-colors ${isCompleted ? "cursor-default bg-gray-100 text-gray-400" : "bg-[rgb(100,201,100)] text-white hover:bg-[rgb(90,187,90)]"}`}
+          className={`w-1/2 rounded-xl py-3 text-sm font-bold transition-colors ${isCompleted ? "cursor-default bg-gray-100 text-gray-400" : "cursor-pointer bg-[rgb(100,201,100)] text-white hover:bg-[rgb(90,187,90)]"}`}
         >
           {isCompleted
             ? "🌱 오늘 학습 완료"
