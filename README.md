@@ -1,73 +1,123 @@
-# React + TypeScript + Vite
+# 모지모지 (mojimoji)
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+> 매일 짧은 뉴스 기사 한 편으로 어휘와 문법을 함께 익히는 일본어(N2) 학습 서비스
 
-Currently, two official plugins are available:
+🔗 **[모지모지](https://mojimoji-nu.vercel.app)**
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+<br />
 
-## React Compiler
+## 📗 프로젝트 소개
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+모지모지는 일본어를 목표로 하는 학습자를 위한 웹 서비스입니다.  
+평일마다 일본 뉴스 기사 한 편이 업데이트되며, 기사 속 핵심 어휘와 문법 포인트를 함께 학습할 수 있습니다.  
+꾸준한 학습을 돕기 위해 스트릭과 캘린더 기반의 학습 기록 기능을 제공합니다.
 
-## Expanding the ESLint configuration
+<br />
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+## ✨ 주요 기능
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+| 기능              | 설명                                    |
+| ----------------- | --------------------------------------- |
+| 📰 매일 뉴스 학습 | 평일마다 새로운 일본어 뉴스 기사 제공   |
+| 📖 어휘 학습      | 기사 속 N2 핵심 어휘 4개 (단어·읽기·뜻) |
+| 📝 문법 학습      | 기사에 등장한 N2 문법 패턴과 예문       |
+| 🔥 학습 스트릭    | 연속 학습일 및 총 학습일                |
+| 🗓️ 학습 캘린더    | 완료일(초록), 놓친 날(빨강) 시각화      |
+| 📚 아카이브       | 지난 기사 월별 그룹핑 및 재학습         |
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+<br />
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+## 👩‍💻 기술 스택
+
+**Frontend**
+
+- React + TypeScript
+- Vite
+- Tailwind CSS
+- React Router
+- Zustand (전역 인증 상태 관리)
+- TanStack Query (서버 상태 관리)
+- SweetAlert2 (알림창)
+- react-calendar (학습 캘린더)
+
+**Backend / Database**
+
+- Supabase (PostgreSQL, Auth, RLS)
+
+**Deploy**
+
+- Vercel
+
+<br />
+
+## 📂 프로젝트 구조
+
+```
+src/
+├── components/
+│   ├── today/          # TodayPage 섹션 컴포넌트 (ArticleSection, VocabSection, GrammarSection)
+│   ├── mypage/         # StudyCalendar
+│   ├── LoadingSpinner.tsx
+│   ├── BottomNav.tsx
+│   ├── Layout.tsx
+│   └── ProtectedRoute.tsx
+├── pages/
+│   ├── LandingPage.tsx
+│   ├── LoginPage.tsx
+│   ├── TodayPage.tsx
+│   ├── ArchivePage.tsx
+│   ├── ArticleDetailPage.tsx
+│   └── MyPage.tsx
+├── hooks/              # TanStack Query 커스텀 훅
+│   ├── useTodayArticle.ts
+│   ├── useStudyRecord.ts
+│   ├── useStudyHistory.ts
+│   ├── useArchive.ts
+│   ├── useArticle.ts
+│   └── useArticleDates.ts
+├── store/
+│   └── authStore.ts    # Zustand 인증 스토어
+└── lib/
+    ├── supabase.ts
+    ├── date.ts
+    ├── streak.ts
+    ├── category.ts
+    └── swal.ts
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+<br />
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+## 🗂️ 데이터베이스 구조
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```
+articles          - 기사 (id, title, body, translation, category, published_date)
+vocabularies      - 어휘 (id, article_id, word, reading, meaning, order_index)
+grammar_points    - 문법 (id, article_id, pattern, explanation, example_jp, example_kr)
+study_records     - 학습 기록 (id, user_id, article_id, studied_at, is_completed)
+```
+
+<br />
+
+## 📷 스크린샷
+
+<!-- 스크린샷 추가 예정 -->
+
+| LandingPage                                            | TodayPage                                            | ArchivePage                                            | MyPage                                            |
+| ------------------------------------------------------ | ---------------------------------------------------- | ------------------------------------------------------ | ------------------------------------------------- |
+| <img src="./screenshots/landingpage.png" width="200"/> | <img src="./screenshots/todaypage.png" width="200"/> | <img src="./screenshots/archivepage.png" width="200"/> | <img src="./screenshots/mypage.png" width="200"/> |
+
+<br />
+
+## 🚀 로컬 실행
+
+```bash
+# 패키지 설치
+npm install
+
+# 환경변수 설정 (.env)
+VITE_SUPABASE_URL=your_supabase_url
+VITE_SUPABASE_ANON_KEY=your_supabase_anon_key
+
+# 개발 서버 실행
+npm run dev
 ```
