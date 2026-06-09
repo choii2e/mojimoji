@@ -6,6 +6,7 @@ import { calculateStreak, calculateTotalDays } from "../lib/streak";
 import StudyCalendar from "../components/mypage/StudyCalendar";
 import { useArticleDates } from "../hooks/useArticleDates";
 import { toDateString } from "../lib/date";
+import { Modal } from "../lib/swal";
 
 export default function MyPage() {
   const navigate = useNavigate();
@@ -18,8 +19,21 @@ export default function MyPage() {
   const totalDays = calculateTotalDays(dates);
 
   const handleLogout = async () => {
-    await supabase.auth.signOut();
-    navigate("/", { replace: true });
+    const result = await Modal.fire({
+      title: "로그아웃",
+      text: "정말 로그아웃 하시겠어요?",
+      icon: "question",
+      showCancelButton: true,
+      confirmButtonText: "로그아웃",
+      cancelButtonText: "취소",
+      confirmButtonColor: "#f87171",
+      cancelButtonColor: "rgb(134, 213, 134)",
+    });
+
+    if (result.isConfirmed) {
+      await supabase.auth.signOut();
+      navigate("/", { replace: true });
+    }
   };
 
   if (isLoading) {

@@ -3,6 +3,7 @@ import ArticleSection from "../components/today/ArticleSection";
 import VocabSection from "../components/today/Vocabsection";
 import GrammarSection from "../components/today/Grammarsection";
 import { useStudyRecord } from "../hooks/useStudyRecord";
+import { Toast } from "../lib/swal";
 
 export default function TodayPage() {
   const { data, isLoading, isWeekend } = useTodayArticle();
@@ -46,7 +47,17 @@ export default function TodayPage() {
 
       <div className="flex justify-center px-5 pt-4">
         <button
-          onClick={() => completeStudy()}
+          onClick={() =>
+            completeStudy(undefined, {
+              onSuccess: () => {
+                Toast.fire({
+                  icon: "success",
+                  title: "오늘 학습 완료! 🎉",
+                  text: "내일도 함께 학습해요",
+                });
+              },
+            })
+          }
           disabled={isCompleted || isPending}
           className={`w-1/2 rounded-xl py-3 text-sm font-bold transition-colors ${isCompleted ? "cursor-default bg-gray-100 text-gray-400" : "cursor-pointer bg-[rgb(100,201,100)] text-white hover:bg-[rgb(90,187,90)]"}`}
         >

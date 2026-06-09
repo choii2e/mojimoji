@@ -2,6 +2,7 @@ import { useState } from "react";
 import { supabase } from "../lib/supabase";
 import { Navigate, useNavigate } from "react-router-dom";
 import { useAuthStore } from "../store/authStore";
+import { Modal, Toast } from "../lib/swal";
 
 export default function LoginPage() {
   const navigate = useNavigate();
@@ -44,8 +45,19 @@ export default function LoginPage() {
     setSubmitting(false);
 
     if (error) {
-      setError(getErrorMessage(error.message));
+      Modal.fire({
+        icon: "error",
+        title: "오류",
+        text: getErrorMessage(error.message),
+        confirmButtonText: "확인",
+        confirmButtonColor: "rgb(134, 213, 134)",
+      });
     } else {
+      Toast.fire({
+        icon: "success",
+        title: isSignUp ? "회원가입 완료 🎉" : "로그인 성공! 🍄",
+        text: "모지모지에 오신 걸 환영해요!",
+      });
       navigate("/today", { replace: true });
     }
   };
@@ -80,7 +92,7 @@ export default function LoginPage() {
             disabled={submitting}
             className="cursor-pointer rounded-lg bg-[rgb(100,201,100)] py-2 text-sm font-medium text-white hover:bg-[rgb(90,187,90)] disabled:opacity-50"
           >
-            {submitting ? "처리 중..." : isSignUp ? "회원가입" : "로그인"}
+            {submitting ? "로그인 중..." : isSignUp ? "회원가입" : "로그인"}
           </button>
         </form>
 
