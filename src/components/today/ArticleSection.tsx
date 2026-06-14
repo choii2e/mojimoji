@@ -1,12 +1,10 @@
 import { useState } from "react";
-import { categoryColor, categoryLabel } from "../../lib/category";
 import { getJapaneseDate } from "../../lib/date";
 
 interface Props {
   title: string;
   body: string;
   translation: string;
-  category: string;
   publishedDate?: string;
 }
 
@@ -14,20 +12,14 @@ export default function ArticleSection({
   title,
   body,
   translation,
-  category,
   publishedDate,
 }: Props) {
   const [showTranslation, setShowTranslation] = useState(false);
 
   return (
     <section className="px-5 pt-6 pb-4">
-      {/* 날짜 & 카테고리 */}
+      {/* 날짜 */}
       <div className="mb-3 flex items-center justify-between gap-2">
-        <span
-          className={`rounded-full px-2 py-0.5 text-xs font-medium ${categoryColor[category]}`}
-        >
-          {categoryLabel[category]}
-        </span>
         <span className="text-sm font-bold text-gray-600">
           {getJapaneseDate(publishedDate)}
         </span>

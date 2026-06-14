@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useArchive } from "../hooks/useArchive";
-import { categoryColor, categoryLabel } from "../lib/category";
 import LoadingSpinner from "../components/LoadingSpinner";
 
 // 기사 목록을 월별로 그룹핑
@@ -10,7 +9,6 @@ const groupByMonth = (
     id: string;
     published_date: string;
     title: string;
-    category: string;
   }[],
 ) => {
   const groups: Record<string, typeof articles> = {};
@@ -84,11 +82,6 @@ export default function ArchivePage() {
                       <div className="flex items-center gap-2">
                         <span className="text-xs text-gray-400">
                           {article.published_date}
-                        </span>
-                        <span
-                          className={`rounded-full px-2 py-0.5 text-xs font-medium ${categoryColor[article.category]}`}
-                        >
-                          {categoryLabel[article.category]}
                         </span>
                       </div>
                       <p className="text-sm leading-snug text-gray-700">

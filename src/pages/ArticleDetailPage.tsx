@@ -51,7 +51,6 @@ export default function ArticleDetailPage() {
         title={data.title}
         body={data.body}
         translation={data.translation}
-        category={data.category}
         publishedDate={data.published_date}
       />
 

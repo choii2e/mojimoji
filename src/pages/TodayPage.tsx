@@ -29,7 +29,6 @@ export default function TodayPage() {
         title={data.title}
         body={data.body}
         translation={data.translation}
-        category={data.category}
       />
 
       <div className="mx-5 border-t border-gray-100" />
