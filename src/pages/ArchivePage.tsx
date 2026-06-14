@@ -46,8 +46,6 @@ export default function ArchivePage() {
 
   return (
     <div className="px-5 pt-6 pb-6">
-      <h1 className="mb-4 text-base font-bold text-gray-800">아카이브</h1>
-
       {months.length === 0 ? (
         <p className="py-12 text-center text-sm text-gray-300">
           아직 지난 기사가 없어요

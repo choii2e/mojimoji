@@ -7,7 +7,7 @@ const fetchArchive = async () => {
 
   const { data, error } = await supabase
     .from("articles")
-    .select("id, published_date, title, category")
+    .select("id, published_date, title")
     .lt("published_date", today)
     .order("published_date", { ascending: false });
 
